@@ -2,12 +2,15 @@
 <ul class="crises">
   <li *ngFor="let crisis of crises$ | async"
     [class.selected]="crisis.id === selectedId"
-    (click)="onSelect(crisis)">
-    <a [routerLink]="['/crisis', crisis.id, {'optional': 'nhu'}]">
+  >
+    <a [routerLink]="['/crisis-center', crisis.id, {'optional': 'nhu'}]">
       <span class="badge">{{crisis.id}}</span> {{crisis.name}}
     </a>
   </li>
 </ul>
+
+<router-outlet></router-outlet>
+
 <!--
 Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

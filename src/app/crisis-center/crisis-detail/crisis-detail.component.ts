@@ -18,8 +18,10 @@ export class CrisisDetailComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private service: CrisisService) { }
 
   ngOnInit() {
+    console.log(this.router)
     this.crisis$ = this.route.paramMap.pipe(
       switchMap((param: ParamMap) => {
+        console.log(param)
         return this.service.getCrisis(+param.get('id'));
       })
     );
@@ -30,10 +32,3 @@ export class CrisisDetailComponent implements OnInit {
     this.router.navigate(['/crisis-center', {id: crisisId, foo: 'foo'}]);
   }
 }
-
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
