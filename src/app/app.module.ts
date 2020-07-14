@@ -7,17 +7,21 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AppRoutingModule } from './app-routing.module';
 import { HeroesModule } from './heroes/heroes.module';
 import { CrisisCenterModule } from './crisis-center/crisis-center.module';
+import { ComposeMessageComponent } from './compose-message/compose-message.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ComposeMessageComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HeroesModule,
     CrisisCenterModule,
+    FormsModule,
     AppRoutingModule // after every module because wildcard will match any url if you order it first
   ],
   providers: [],
