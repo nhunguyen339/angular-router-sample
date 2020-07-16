@@ -9,6 +9,7 @@ import { HeroesModule } from './heroes/heroes.module';
 import { CrisisCenterModule } from './crisis-center/crisis-center.module';
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
 import { FormsModule } from '@angular/forms';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     HeroesModule,
     CrisisCenterModule,
     FormsModule,
+    AdminModule,
     AppRoutingModule // after every module because wildcard will match any url if you order it first
   ],
   providers: [],
