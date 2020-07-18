@@ -8,21 +8,22 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean {
-    return this.checkLogin(state.url);
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const url = state.url;
+    return this.checkLogin(url);
   }
-  private checkLogin(url: string): boolean {
+
+  private checkLogin(url) {
     if (this.authService.isLoggedIn) { return true; }
 
     this.authService.redirectUrl = url;
+
     this.router.navigate(['/login']);
+
     return false;
   }
 
-  canActivateChild(next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean {
-    return false;
+  canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return this.canActivate(next, state);
   }
 }

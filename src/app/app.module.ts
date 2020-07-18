@@ -10,6 +10,7 @@ import { CrisisCenterModule } from './crisis-center/crisis-center.module';
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
 import { FormsModule } from '@angular/forms';
 import { AdminModule } from './admin/admin.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AdminModule } from './admin/admin.module';
     CrisisCenterModule,
     FormsModule,
     AdminModule,
+    AuthModule,
     AppRoutingModule // after every module because wildcard will match any url if you order it first
   ],
   providers: [],
