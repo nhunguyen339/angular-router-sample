@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 import { Crisis } from '../crisis';
 import { CrisisService } from '../crisis.service';
+import { DialogService } from 'src/app/dialog.service';
 
 @Component({
   selector: 'app-crisis-detail',
@@ -13,20 +13,36 @@ import { CrisisService } from '../crisis.service';
 })
 export class CrisisDetailComponent implements OnInit {
 
-  public crisis$: Observable<Crisis>;
+  public editName: string;
+  public crisis: Crisis;
 
-  constructor(private router: Router, private route: ActivatedRoute, private service: CrisisService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private service: CrisisService, private dialog: DialogService) { }
 
   ngOnInit() {
-    this.crisis$ = this.route.paramMap.pipe(
+    this.route.paramMap.pipe(
       switchMap((param: ParamMap) => {
         return this.service.getCrisis(+param.get('id'));
       })
-    );
+    ).subscribe(crisis => { this.crisis = crisis; this.editName = crisis.name; });
+  }
+
+  save() {
+    this.crisis.name = this.editName;
+    this.gotoCrises(this.crisis);
+  }
+
+  cancel() {
+    this.gotoCrises(this.crisis);
   }
 
   gotoCrises(crisis: Crisis) {
     const crisisId = crisis ? crisis.id : null;
-    this.router.navigate(['../', {id: crisisId, foo: 'foo'}], {relativeTo: this.route});
+    this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
+  }
+
+  public canDeactivate() {
+    if (!this.crisis || this.crisis.name === this.editName) { return true; }
+
+    return this.dialog.confirm('Do you want to discard your change?');
   }
 }
